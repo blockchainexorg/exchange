@@ -6,7 +6,7 @@
  * Time: 下午5:02
  */
 
-namespace Exchange\Exchange\Models;
+namespace ExchangeCenter\Exchange\Models;
 
 
 class Ticker

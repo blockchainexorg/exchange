@@ -1,6 +1,6 @@
 <?php
-namespace Exchange\Exchange;
-use Exchange\Exchange;
+namespace ExchangeCenter\Exchange;
+use ExchangeCenter\Exchange;
 
 /**
  * Created by PhpStorm.

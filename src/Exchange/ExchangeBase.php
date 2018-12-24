@@ -1,8 +1,8 @@
 <?php
 
-namespace Exchange\Exchange;
+namespace ExchangeCenter\Exchange;
 
-use Exchange\Helper;
+use ExchangeCenter\Helper;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use function GuzzleHttp\Promise\unwrap;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Exchange;
+namespace ExchangeCenter;
 
 
 /**
@@ -21,7 +21,7 @@ class Exchange
     public function setExchange($exchange)
     {
         $exchange = ucfirst($exchange);
-        $class = '\Exchange\Exchange\\' . $exchange;
+        $class = '\ExchangeCenter\Exchange\\' . $exchange;
         if (!class_exists($class)) {
             Helper::fail('暂不支持该交易所');
         }

@@ -6,8 +6,8 @@
  * Time: 上午11:01
  */
 require_once '../vendor/autoload.php';
-use Exchange\Helper;
-use Exchange\Exchange;
+use ExchangeCenter\Helper;
+use ExchangeCenter\Exchange;
 
 try {
     $obj = new Exchange();

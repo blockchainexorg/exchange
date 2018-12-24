@@ -1,10 +1,10 @@
 <?php
 
-namespace Exchange\Exchange;
+namespace ExchangeCenter\Exchange;
 
-use Exchange\Exchange;
-use Exchange\Helper;
-use Exchange\Exchange\Models\Ticker;
+use ExchangeCenter\Exchange;
+use ExchangeCenter\Helper;
+use ExchangeCenter\Exchange\Models\Ticker;
 
 /**
  * Created by PhpStorm.

@@ -28,9 +28,9 @@ return [
         'ticker' => 'RealTimeQuote/GetRealTimeQuotes',
         'pairs' => 'RealTimeQuote/GetRealTimeQuotes',
         'timeout' => 60,
-//        'proxy' => [
-//            'http' => 'http://127.0.0.1:8001',
-//            'https' => 'http://127.0.0.1:8001'
-//        ]
+        'proxy' => [
+            'http' => 'http://127.0.0.1:8001',
+            'https' => 'http://127.0.0.1:8001'
+        ]
     ]
 ];
