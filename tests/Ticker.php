@@ -9,26 +9,28 @@ require_once '../vendor/autoload.php';
 use Exchange\Helper;
 use Exchange\Exchange;
 
-$obj = new Exchange();
-$obj->setExchange($argv[1]);
+try {
+    $obj = new Exchange();
+    $obj->setExchange($argv[1]);
 
+    switch ($argv[1]) {
+        case 'idcm':
+            $config = [
+                'apikey' => 'xxx',
+                'secret' => 'xxx'
+            ];
+            $obj->setOptions($config);
+            break;
+        default:
+            break;
 
-switch ($argv[1]) {
-    case 'idcm':
-        $config = [
-            'apikey' => 'xxx',
-            'secret' => 'xxx'
-        ];
-        $obj->setOptions($config);
-        break;
-    default:
-        break;
+    }
 
+    $ret = $obj->getTicker();
+
+} catch (Exception $e) {
+    var_dump($e->getMessage());
+    die();
 }
 
-
-$ret = $obj->getTicker();
-
-
-
-var_dump($ret);
+var_dump(json_encode($ret));

@@ -20,8 +20,14 @@ class Exchange
 
     public function setExchange($exchange)
     {
+        $exchange = ucfirst($exchange);
+        $class = '\Exchange\Exchange\\' . $exchange;
+        if (!class_exists($class)) {
+            throw new \Exception('暂不支持该交易所');
+        }
+        $this->class = new $class;
         $this->exchange = $exchange;
-        $this->class = $this->getClass();
+
         return $this;
     }
 
@@ -52,21 +58,15 @@ class Exchange
         return $this->params;
     }
 
-    public function setOptions(array $options) {
+    public function setOptions(array $options)
+    {
         $this->options = $options;
         return $this;
     }
 
-    public function getOptions() {
-        return $this->options;
-    }
-
-    private function getClass()
+    public function getOptions()
     {
-        $exchange = ucfirst($this->exchange);
-        $class = '\Exchange\Exchange\\' . $exchange;
-        $class = new $class();
-        return $class;
+        return $this->options;
     }
 
     public function getTicker()

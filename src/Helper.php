@@ -23,17 +23,7 @@ class Helper
     }
 
     public static function fail($message) {
-        return [
-            'success' => false,
-            'message' => $message
-        ];
-    }
-
-    public static function succ($data) {
-        return [
-            'success' => true,
-            'data' => $data
-        ];
+        throw new \Exception($message);
     }
 
     public static function toArray($object) {

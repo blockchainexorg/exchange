@@ -18,10 +18,10 @@ return [
         'url' => 'https://oex.com/api/v1/',
         'ticker' => 'tickers',
         'timeout' => 90,
-//        'proxy' => [
-//            'http' => 'http://127.0.0.1:8001',
-//            'https' => 'http://127.0.0.1:8001'
-//        ]
+        'proxy' => [
+            'http' => 'http://127.0.0.1:8001',
+            'https' => 'http://127.0.0.1:8001'
+        ]
     ],
     'idcm' => [
         'url' => 'https://api.idcm.io:8323/api/v1/',

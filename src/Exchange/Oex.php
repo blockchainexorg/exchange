@@ -4,6 +4,7 @@ namespace Exchange\Exchange;
 
 use Exchange\Exchange;
 use Exchange\Helper;
+use Exchange\Exchange\Models\Ticker;
 
 /**
  * Created by PhpStorm.
@@ -52,6 +53,7 @@ class Oex extends ExchangeBase implements ExchangeInterface
     private function convertTicker()
     {
         $ticker_data = [];
+        $timestamp = floor($this->data['time'] / 1000);
         foreach ($this->data['data'] as $datum) {
             $_symbol = strtoupper($datum['name']);
             $symbol = explode('_', $_symbol);
@@ -64,6 +66,7 @@ class Oex extends ExchangeBase implements ExchangeInterface
             $ticker->close = $datum['latest'];
             $ticker->amount = $datum['24h_vol'];
             //$ticker->vol = $datum['vq'];
+            $ticker->timestamp = $timestamp;
 
             $ticker_data[$_symbol] = Helper::toArray($ticker);
         }

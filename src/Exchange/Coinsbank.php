@@ -4,6 +4,7 @@ namespace Exchange\Exchange;
 
 use Exchange\Exchange;
 use Exchange\Helper;
+use Exchange\Exchange\Models\Ticker;
 
 /**
  * Created by PhpStorm.

@@ -15,13 +15,22 @@ blockchainexorg/exchange用于集成对接各个主流交易所的开放接口
 ```
 use Exchange\Exchange;
 
-$obj = new Exchange();
-$ticker = $obj->setExchange('coinsbank')   
-    ->getTicker();
+try {
+    $obj = new Exchange();
+    $ticker = $obj->setExchange('coinsbank')   
+        ->setOptions([
+            'apikey' => 'xxx',//idcm需要
+            'secret' => 'xxx',//idcm需要
+        ])
+        ->getTicker();
+} catch(Exception $e) {
+    var_dump($e->getMessage());
+}
 ```
 方法解释：
 ```
 setExchange() 设置平台
+setOptions()  设置选项信息
 ```
 返回数据：
 ```
