@@ -11,7 +11,8 @@ namespace Exchange\Exchange;
 
 class Ticker
 {
-
+    public $digital_currency = null;
+    public $market_currency = null;
     public $open   = 0.00000000; //开
     public $high   = 0.00000000; //高
     public $low    = 0.00000000; //低
@@ -19,5 +20,6 @@ class Ticker
     public $amount = 0.00000000; //成交量
     public $vol    = 0.00000000; //成交额
     public $count  = 0;          //成交笔数
+    public $timestamp = 0;       //时间戳
 
 }

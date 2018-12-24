@@ -17,4 +17,6 @@ interface ExchangeInterface
     public function getDepth();
 
     public function getKline();
+
+    public function getPairs();
 }

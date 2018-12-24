@@ -16,6 +16,7 @@ class Exchange
     private $symbol = null;
     private $class = null;
     private $params = [];
+    private $options = [];
 
     public function setExchange($exchange)
     {
@@ -51,6 +52,15 @@ class Exchange
         return $this->params;
     }
 
+    public function setOptions(array $options) {
+        $this->options = $options;
+        return $this;
+    }
+
+    public function getOptions() {
+        return $this->options;
+    }
+
     private function getClass()
     {
         $exchange = ucfirst($this->exchange);
@@ -62,14 +72,7 @@ class Exchange
     public function getTicker()
     {
         $ret = $this->class->getTicker($this);
-        $this->richData($ret);
         return $ret;
-    }
-
-    private function richData(&$data)
-    {
-        $data['exchange'] = $this->exchange;
-        $data['symbol'] = $this->symbol;
     }
 
 }
