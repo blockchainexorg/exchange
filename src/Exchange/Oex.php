@@ -17,14 +17,7 @@ class Oex extends ExchangeBase implements ExchangeInterface
     public function getTicker(Exchange $exchange)
     {
         $url = $this->config['ticker'];
-        $ret = $this->request('GET', $url);
-
-        if ($ret === false) {
-            return Helper::fail($this->error);
-        }
-        if (!$this->handleError()) {
-            return Helper::fail($this->error);
-        }
+        $this->request('GET', $url);
         if(empty($this->data['data'])) {
             return [];
         }
@@ -74,8 +67,4 @@ class Oex extends ExchangeBase implements ExchangeInterface
         return $ticker_data;
     }
 
-    private function handleError()
-    {
-        return true;
-    }
 }

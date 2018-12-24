@@ -29,7 +29,7 @@ class Coinsbank extends ExchangeBase implements ExchangeInterface
 
         $ret = $this->multiRequest($promises);
         if ($ret === false) {
-            return Helper::fail($this->error);
+            Helper::fail($this->error);
         }
         return $this->convertTicker();
     }
@@ -51,13 +51,11 @@ class Coinsbank extends ExchangeBase implements ExchangeInterface
 
     public function getPairs()
     {
-        $ret = $this->request('GET', $this->config['pairs']);
-        if ($ret === false) {
-            return false;
+        $this->request('GET', $this->config['pairs']);
+        if (empty($this->data)) {
+            Helper::fail('获取交易对失败');
         }
-        if (!$this->handleError()) {
-            return false;
-        }
+        $this->handleError();
         return $this->convertPairs();
     }
 
@@ -101,8 +99,7 @@ class Coinsbank extends ExchangeBase implements ExchangeInterface
     private function handleError()
     {
         if (!empty($this->data['code'])) {
-            $this->error = '请求失败，返回结果：' . json_encode($this->data);
-            return false;
+            Helper::fail('请求失败，返回结果：' . json_encode($this->data));
         }
         return true;
     }

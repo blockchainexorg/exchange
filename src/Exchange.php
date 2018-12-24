@@ -23,7 +23,7 @@ class Exchange
         $exchange = ucfirst($exchange);
         $class = '\Exchange\Exchange\\' . $exchange;
         if (!class_exists($class)) {
-            throw new \Exception('暂不支持该交易所');
+            Helper::fail('暂不支持该交易所');
         }
         $this->class = new $class;
         $this->exchange = $exchange;

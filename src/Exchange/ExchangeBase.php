@@ -46,18 +46,15 @@ class ExchangeBase
         try {
             $response = $this->getClient()->request($method, $url, $params);
         } catch (ClientException $e) {
-            $this->error = '连接失败：' . $e->getMessage();
-            return false;
+            Helper::fail('连接失败：' . $e->getMessage());
         } catch (GuzzleException $e) {
-            $this->error = '请求失败：' . $e->getMessage();
-            return false;
+            Helper::fail('请求失败：' . $e->getMessage());
         }
         $data = (string)$response->getBody();
         //@TODO 如果有不是json的再扩展
         $this->data = json_decode($data, true);
         if ($this->data === false) {
-            $this->error = '获取数据异常：' . $data;
-            return false;
+            Helper::fail('获取数据异常：' . $data);
         }
         return true;
     }
@@ -81,11 +78,9 @@ class ExchangeBase
         try {
             $response = unwrap($promises);
         } catch (ClientException $e) {
-            $this->error = '连接失败：' . $e->getMessage();
-            return false;
+            Helper::fail('连接失败：' . $e->getMessage());
         } catch (GuzzleException $e) {
-            $this->error = '请求失败：' . $e->getMessage();
-            return false;
+            Helper::fail('请求失败：' . $e->getMessage());
         }
 
         $response_data = [];

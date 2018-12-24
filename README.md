@@ -55,6 +55,8 @@ setOptions()  设置选项信息
     float(370160.870076)
     ["count"]=>
     int(0)
+    ["timestamp"]=>
+    int(1545609600)
   }
 }
 

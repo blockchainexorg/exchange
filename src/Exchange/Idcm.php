@@ -16,28 +16,9 @@ class Idcm extends ExchangeBase implements ExchangeInterface
 {
     public function getTicker(Exchange $exchange)
     {
-
-        $options = $exchange->getOptions();
-        $sign = $this->getSign($options['secret']);
-        $headers = [
-            'X-IDCM-APIKEY' => $options['apikey'],
-            'X-IDCM-SIGNATURE' => $sign,
-            'X-IDCM-INPUT' => 'xx'
-        ];
-        var_dump($sign);
-        die();
-
-
         $url = $this->config['ticker'];
-        $ret = $this->request('GET', $url);
-
-        if ($ret === false) {
-            return Helper::fail($this->error);
-        }
-        if (!$this->handleError()) {
-            return Helper::fail($this->error);
-        }
-        if (empty($this->data['data'])) {
+        $this->request('GET', $url);
+        if(empty($this->data['Data'])) {
             return [];
         }
         return $this->convertTicker();
@@ -65,22 +46,19 @@ class Idcm extends ExchangeBase implements ExchangeInterface
     private function convertTicker()
     {
         $ticker_data = [];
-        foreach ($this->data['data'] as $datum) {
-            $_symbol = strtoupper($datum['name']);
-            $symbol = explode('_', $_symbol);
+        foreach ($this->data['Data'] as $datum) {
+            $symbol = explode('/', $datum['TradePairCode']);
             $ticker = new Ticker();
             $ticker->digital_currency = $symbol[0];
             $ticker->market_currency = $symbol[1];
-            $ticker->open = $datum['buy'] ?? $datum['latest'];
-            $ticker->high = $datum['high'] ?? $datum['latest'];
-            $ticker->low = $datum['low'] ?? $datum['latest'];
-            $ticker->close = $datum['latest'];
-            $ticker->amount = $datum['24h_vol'];
-            //$ticker->vol = $datum['vq'];
-
-            $ticker_data[$_symbol] = Helper::toArray($ticker);
+            $ticker->open = $datum['Open'];
+            $ticker->high = $datum['High'];
+            $ticker->low = $datum['Low'];
+            $ticker->close = $datum['Close'];
+            $ticker->amount = $datum['Volume'];
+            $ticker->vol = $datum['Turnover'];
+            $ticker_data[$symbol[0].'_'.$symbol[1]] = Helper::toArray($ticker);
         }
-
         return $ticker_data;
     }
 
@@ -89,17 +67,17 @@ class Idcm extends ExchangeBase implements ExchangeInterface
         return true;
     }
 
-    private function getSign($secret)
-    {
-        $uri = $this->config['url'] . $this->config['ticker'];
-        $str = hash_hmac("sha384", $uri, $secret);
-        return $this->base64UrlEncode($str);
-    }
-
-    private function base64UrlEncode($str)
-    {
-        $find = array('+', '/');
-        $replace = array('-', '_');
-        return str_replace($find, $replace, base64_encode($str));
-    }
+//    private function getSign($secret)
+//    {
+//        $uri = $this->config['url'] . $this->config['ticker'];
+//        $str = hash_hmac("sha384", $uri, $secret);
+//        return $this->base64UrlEncode($str);
+//    }
+//
+//    private function base64UrlEncode($str)
+//    {
+//        $find = array('+', '/');
+//        $replace = array('-', '_');
+//        return str_replace($find, $replace, base64_encode($str));
+//    }
 }
