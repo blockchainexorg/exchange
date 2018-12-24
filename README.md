@@ -13,7 +13,7 @@ blockchainexorg/exchange用于集成对接各个主流交易所的开放接口
 
 调用示例：
 ```
-use Exchange\Exchange;
+use ExchangeCenter\Exchange;
 
 try {
     $obj = new Exchange();
