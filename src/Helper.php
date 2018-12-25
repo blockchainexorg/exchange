@@ -13,11 +13,13 @@ class Helper
 {
     public static function config($key)
     {
-        $config = require_once 'Config.php';
+        $config = require 'Config.php';
+        //var_dump($config);
         return isset($config[$key]) ? $config[$key] : [];
     }
 
     public static function getClass($class) {
+
         $class = is_object($class) ? get_class($class) : $class;
         return basename(str_replace('\\', '/', $class));
     }

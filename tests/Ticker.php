@@ -15,9 +15,13 @@ try {
 
     switch ($argv[1]) {
         case 'idcm':
+        case 'oex':
+        case 'coinsbank':
             $config = [
-                'apikey' => 'xxx',
-                'secret' => 'xxx'
+                'proxy' => [
+                    'http' => 'http://127.0.0.1:8001',
+                    'https' => 'http://127.0.0.1:8001'
+                ]
             ];
             $obj->setOptions($config);
             break;
@@ -33,4 +37,4 @@ try {
     die();
 }
 
-var_dump(json_encode($ret));
+var_dump($ret);

@@ -1,10 +1,9 @@
 <?php
 
-namespace ExchangeCenter\Exchange;
+namespace ExchangeCenter\Exchanges\Coinsbank;
 
-use ExchangeCenter\Exchange;
+use ExchangeCenter\Exchanges\ExchangeBase;
 use ExchangeCenter\Helper;
-use ExchangeCenter\Exchange\Models\Ticker;
 
 /**
  * Created by PhpStorm.
@@ -12,18 +11,20 @@ use ExchangeCenter\Exchange\Models\Ticker;
  * Date: 2018/12/14
  * Time: 下午2:34
  */
-class Coinsbank extends ExchangeBase implements ExchangeInterface
+class Ticker extends ExchangeBase
 {
-    public function getTicker(Exchange $exchange)
+    protected $exchange = 'coinsbank';
+
+    public function getData($options = [])
     {
-        $pairs = $this->getPairs();
+        $pairs = (new Pairs($this->exchange))->getData();
         if (empty($pairs)) return [];
 
         $promises = [];
         foreach ($pairs as $pair) {
             $promises[] = [
-                'index' => $pair[0] . '_' . $pair[1],
-                'url' => $this->config['url'] . sprintf($this->config['ticker'], $pair[0] . $pair[1]),
+                'index' => $pair['digital_currency'] . '_' . $pair['market_currency'],
+                'url' => $this->config['url'] . sprintf($this->config['ticker'], $pair['digital_currency'] . $pair['market_currency']),
             ];
         }
 
@@ -31,38 +32,13 @@ class Coinsbank extends ExchangeBase implements ExchangeInterface
         if ($ret === false) {
             Helper::fail($this->error);
         }
-        return $this->convertTicker();
+        return $this->convertData();
     }
 
-    public function getTrade()
-    {
-
-    }
-
-    public function getDepth()
-    {
-
-    }
-
-    public function getKline()
-    {
-
-    }
-
-    public function getPairs()
-    {
-        $this->request('GET', $this->config['pairs']);
-        if (empty($this->data)) {
-            Helper::fail('获取交易对失败');
-        }
-        $this->handleError();
-        return $this->convertPairs();
-    }
-
-    private function convertTicker()
+    private function convertData()
     {
         $tickers = [];
-        if(!empty($this->data)) {
+        if (!empty($this->data)) {
             foreach ($this->data as $pair => $datum) {
                 $data = current($datum);
                 $symbol = explode('_', $pair);
@@ -80,20 +56,6 @@ class Coinsbank extends ExchangeBase implements ExchangeInterface
             }
         }
         return $tickers;
-    }
-
-    private function convertPairs()
-    {
-        $pairs_data = [];
-        if (!empty($this->data['pairs'])) {
-            foreach ($this->data['pairs'] as $pair) {
-                $pairs_data[] = [
-                    $pair['base_code'],
-                    $pair['quote_code'],
-                ];
-            }
-        }
-        return $pairs_data;
     }
 
     private function handleError()

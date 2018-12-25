@@ -1,6 +1,6 @@
 <?php
 
-namespace ExchangeCenter\Exchange;
+namespace ExchangeCenter\Exchanges;
 
 use ExchangeCenter\Helper;
 use GuzzleHttp\Client;
@@ -23,28 +23,27 @@ class ExchangeBase
 
     public function __construct()
     {
-        $this->exchange = strtolower(Helper::getClass(get_called_class()));
         $this->config = Helper::config($this->exchange);
     }
 
-    private function getClient()
+    private function getClient($options=[])
     {
         $timeout = $this->config['timeout'] ?? 10;
         $client_params = [
             'base_uri' => $this->config['url'],
             'timeout' => $timeout,
         ];
-        //@TODO 考虑用环境变量配置 后边看测试情况
-        if (!empty($this->config['proxy'])) {
+        //设置代理
+        if (!empty($options['proxy'])) {
             $client_params['proxy'] = $this->config['proxy'];
         }
         return new Client($client_params);
     }
 
-    protected function request($method = 'GET', $url = '', $params = [], $return_type = 'json')
+    protected function request($method = 'GET', $url = '', $options = [], $return_type = 'json')
     {
         try {
-            $response = $this->getClient()->request($method, $url, $params);
+            $response = $this->getClient()->request($method, $url, $options);
         } catch (ClientException $e) {
             Helper::fail('连接失败：' . $e->getMessage());
         } catch (GuzzleException $e) {

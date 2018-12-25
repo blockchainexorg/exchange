@@ -6,10 +6,10 @@
  * Time: 下午5:02
  */
 
-namespace ExchangeCenter\Exchange\Models;
+namespace ExchangeCenter\Models;
 
 
-class Ticker
+class TickerModel
 {
     public $digital_currency = null;
     public $market_currency = null;
@@ -20,6 +20,8 @@ class Ticker
     public $amount = 0.00000000; //成交量
     public $vol    = 0.00000000; //成交额
     public $count  = 0;          //成交笔数
+    public $bid1   = 0.00000000;  //买一价
+    public $ask1   = 0.00000000;  //卖一价
     public $timestamp = 0;       //时间戳
 
 }

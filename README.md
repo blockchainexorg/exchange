@@ -4,11 +4,11 @@ blockchainexorg/exchange用于集成对接各个主流交易所的开放接口
 ## Ticker
 获取ticker数据
 
-支持平台及平台文档地址：
+支持平台：
 
 ```
-1、coinsbank：https://coinsbank.com/sapi/trade/ohlcv?pairCode=BTCUSD&interval=86400
-2、oex：https://oex.com/api/v1/tickers
+coinsbank、oex、idcm、fatbtc、topbtc、coinsuper、mountaintoken
+
 ```
 
 调用示例：
@@ -17,10 +17,13 @@ use ExchangeCenter\Exchange;
 
 try {
     $obj = new Exchange();
-    $ticker = $obj->setExchange('coinsbank')   
+    $ticker = $obj->setExchange('coinsbank')  
         ->setOptions([
-            'apikey' => 'xxx',//idcm需要
-            'secret' => 'xxx',//idcm需要
+            //如果需要设置代理，则传该参数
+            'proxy' => [
+                'http' => 'http://127.0.0.1:8001',
+                'https' => 'http://127.0.0.1:8001',
+            ]
         ])
         ->getTicker();
 } catch(Exception $e) {
@@ -34,30 +37,39 @@ setOptions()  设置选项信息
 ```
 返回数据：
 ```
-{
-  ["BTC_USD"]=>
-  array(9) {
+amount 24小时交易量
+vol    24小时交易额
+count  成交笔数
+bid1   买一价
+ask1   卖一价
+```
+```
+array(12) {
     ["digital_currency"]=>
-    string(3) "BTC"
+    string(3) "CSE"
     ["market_currency"]=>
-    string(3) "USD"
+    string(3) "BTC"
     ["open"]=>
-    float(3498.61)
+    float(0.00011)
     ["high"]=>
-    float(3529.69)
+    string(9) "0.0001167"
     ["low"]=>
-    float(3482.86)
+    string(8) "0.000108"
     ["close"]=>
-    float(3490.71)
+    string(8) "0.000114"
     ["amount"]=>
-    float(105.5718)
+    float(7852.7652384739)
     ["vol"]=>
-    float(370160.870076)
+    float(0)
     ["count"]=>
     int(0)
+    ["bid1"]=>
+    float(0)
+    ["ask1"]=>
+    float(0)
     ["timestamp"]=>
-    int(1545609600)
+    float(1545717241)
   }
-}
+
 
 ```

@@ -11,26 +11,47 @@ return [
         'url' => 'https://coinsbank.com/sapi/',
         'ticker' => 'trade/ohlcv?pairCode=%s&interval=86400',
         'pairs' => 'head',
-        'timeout' => 10,
-        //'proxy' => []
+        'timeout' => 60,
     ],
     'oex' => [
         'url' => 'https://oex.com/api/v1/',
         'ticker' => 'tickers',
         'timeout' => 90,
-//        'proxy' => [
-//            'http' => 'http://127.0.0.1:8001',
-//            'https' => 'http://127.0.0.1:8001'
-//        ]
     ],
     'idcm' => [
         'url' => 'https://api.idcm.io:8323/api/v1/',
         'ticker' => 'RealTimeQuote/GetRealTimeQuotes',
         'pairs' => 'RealTimeQuote/GetRealTimeQuotes',
         'timeout' => 60,
-//        'proxy' => [
-//            'http' => 'http://127.0.0.1:8001',
-//            'https' => 'http://127.0.0.1:8001'
-//        ]
-    ]
+    ],
+    'fatbtc' => [
+        'url' => 'https://www.fatbtc.us/m/',
+        'ticker' => 'allticker/1/',
+        'pairs' => '',
+        'timeout' => 60,
+    ],
+    'topbtc' => [
+        'url' => 'http://www.topbtc.one/market/',
+        'ticker' => 'tickerall.php',
+        'pairs' => '',
+        'timeout' => 60,
+    ],
+    'coinsuper' => [
+        'url' => 'https://www.coinsuper.com/v1/api/market/',
+        'ticker' => 'hour24Market',
+        'pairs' => '',
+        'timeout' => 60,
+    ],
+    'mountaintoken' => [
+        'url' => 'https://www.mountaintoken.co/api/v2/',
+        'ticker' => 'tickers',
+        'pairs' => '',
+        'timeout' => 60,
+    ],
+    'singbitx' => [
+        'url' => 'https://manager.singbitx.io/api/v2/',
+        'ticker' => 'tickers',
+        'pairs' => '',
+        'timeout' => 60,
+    ],
 ];

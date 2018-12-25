@@ -21,13 +21,7 @@ class Exchange
     public function setExchange($exchange)
     {
         $exchange = ucfirst($exchange);
-        $class = '\ExchangeCenter\Exchange\\' . $exchange;
-        if (!class_exists($class)) {
-            Helper::fail('暂不支持该交易所');
-        }
-        $this->class = new $class;
         $this->exchange = $exchange;
-
         return $this;
     }
 
@@ -47,17 +41,6 @@ class Exchange
         return $this->symbol;
     }
 
-    public function setParams(array $params)
-    {
-        $this->params = $params;
-        return $this;
-    }
-
-    public function getParams()
-    {
-        return $this->params;
-    }
-
     public function setOptions(array $options)
     {
         $this->options = $options;
@@ -71,7 +54,12 @@ class Exchange
 
     public function getTicker()
     {
-        $ret = $this->class->getTicker($this);
+        $class = '\ExchangeCenter\Exchanges\\' . $this->exchange . '\Ticker';
+        if (!class_exists($class)) {
+            Helper::fail('暂不支持该交易所获取Ticker');
+        }
+        $this->class = new $class();
+        $ret = $this->class->getData($this->options);
         return $ret;
     }
 

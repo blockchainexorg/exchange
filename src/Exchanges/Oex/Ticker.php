@@ -1,10 +1,10 @@
 <?php
 
-namespace ExchangeCenter\Exchange;
+namespace ExchangeCenter\Exchanges\Oex;
 
-use ExchangeCenter\Exchange;
+use ExchangeCenter\Exchanges\ExchangeBase;
 use ExchangeCenter\Helper;
-use ExchangeCenter\Exchange\Models\Ticker;
+use ExchangeCenter\Models\TickerModel;
 
 /**
  * Created by PhpStorm.
@@ -12,45 +12,29 @@ use ExchangeCenter\Exchange\Models\Ticker;
  * Date: 2018/12/14
  * Time: 下午2:34
  */
-class Oex extends ExchangeBase implements ExchangeInterface
+class Ticker extends ExchangeBase
 {
-    public function getTicker(Exchange $exchange)
+    protected $exchange = 'oex';
+
+    public function getData($options = [])
     {
         $url = $this->config['ticker'];
-        $this->request('GET', $url);
-        if(empty($this->data['data'])) {
+
+        $this->request('GET', $url, $options);
+        if (empty($this->data['data'])) {
             return [];
         }
-        return $this->convertTicker();
+        return $this->convertData();
     }
 
-    public function getTrade()
-    {
-
-    }
-
-    public function getDepth()
-    {
-
-    }
-
-    public function getKline()
-    {
-
-    }
-
-    public function getPairs() {
-
-    }
-
-    private function convertTicker()
+    private function convertData()
     {
         $ticker_data = [];
         $timestamp = floor($this->data['time'] / 1000);
         foreach ($this->data['data'] as $datum) {
             $_symbol = strtoupper($datum['name']);
             $symbol = explode('_', $_symbol);
-            $ticker = new Ticker();
+            $ticker = new TickerModel();
             $ticker->digital_currency = $symbol[0];
             $ticker->market_currency = $symbol[1];
             $ticker->open = $datum['buy'] ?? $datum['latest'];
