@@ -10,7 +10,7 @@ return [
     'coinsbank' => [
         'url' => 'https://coinsbank.com/sapi/',
         'ticker' => 'trade/ohlcv?pairCode=%s&interval=86400',
-        'pairs' => 'head1',
+        'pairs' => 'head',
         'timeout' => 10,
         //'proxy' => []
     ],
@@ -28,9 +28,9 @@ return [
         'ticker' => 'RealTimeQuote/GetRealTimeQuotes',
         'pairs' => 'RealTimeQuote/GetRealTimeQuotes',
         'timeout' => 60,
-        'proxy' => [
-            'http' => 'http://127.0.0.1:8001',
-            'https' => 'http://127.0.0.1:8001'
-        ]
+//        'proxy' => [
+//            'http' => 'http://127.0.0.1:8001',
+//            'https' => 'http://127.0.0.1:8001'
+//        ]
     ]
 ];
