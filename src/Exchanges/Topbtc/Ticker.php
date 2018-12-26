@@ -20,6 +20,7 @@ class Ticker extends ExchangeBase
     {
         $url = $this->config['ticker'];
         $this->request('GET', $url, $options);
+        var_dump($this->data);die();
         if (empty($this->data)) {
             return [];
         }
@@ -33,11 +34,13 @@ class Ticker extends ExchangeBase
             $ticker = new TickerModel();
             $ticker->digital_currency = $datum['coin'];
             $ticker->market_currency = $datum['market'];
-            $ticker->open = $datum['ticker']['open'];
+            $ticker->open = $datum['ticker']['last'];//@TODO 此交易所ticker没有open价格，先给个last
             $ticker->high = $datum['ticker']['high'];
             $ticker->low = $datum['ticker']['low'];
             $ticker->close = $datum['ticker']['last'];
             $ticker->amount = $datum['ticker']['vol'];
+            $ticker->bid1 = $datum['ticker']['buy'];
+            $ticker->ask1 = $datum['ticker']['sell'];
             //$ticker->vol = $datum['amount'];
             $ticker->timestamp = $datum['date'];
             $ticker_data[$datum['coin'] . '_' . $datum['market']] = Helper::toArray($ticker);
