@@ -54,4 +54,10 @@ return [
         'pairs' => '',
         'timeout' => 60,
     ],
+    'hotbit' => [
+        'url' => 'https://api.hotbit.io/api/v1/',
+        'ticker' => 'allticker',
+        'pairs' => '',
+        'timeout' => 60,
+    ],
 ];
