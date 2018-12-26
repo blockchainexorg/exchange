@@ -20,7 +20,6 @@ class Ticker extends ExchangeBase
     {
         $url = $this->config['ticker'];
         $this->request('GET', $url, $options);
-        var_dump($this->data);die();
         if (empty($this->data)) {
             return [];
         }
