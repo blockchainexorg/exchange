@@ -7,7 +7,7 @@ blockchainexorg/exchange用于集成对接各个主流交易所的开放接口
 支持平台：
 
 ```
-coinsbank、oex、idcm、fatbtc、topbtc、coinsuper、mountaintoken、singbitx、hotbit
+coinsbank、oex、idcm、fatbtc、topbtc、coinsuper、mountaintoken、singbitx、hotbit、cointiger
 
 ```
 
