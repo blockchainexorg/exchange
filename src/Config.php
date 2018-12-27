@@ -60,4 +60,10 @@ return [
         'pairs' => '',
         'timeout' => 60,
     ],
+    'cointiger' => [
+        'url' => '',
+        'ticker' => 'https://www.cointiger.com/exchange/api/public/market/detail',
+        'pairs' => 'https://api.cointiger.com/exchange/trading/api/v2/currencys',
+        'timeout' => 60,
+    ],
 ];

@@ -4,6 +4,7 @@ namespace ExchangeCenter\Exchanges\Coinsbank;
 
 use ExchangeCenter\Exchanges\ExchangeBase;
 use ExchangeCenter\Helper;
+use ExchangeCenter\Models\TickerModel;
 
 /**
  * Created by PhpStorm.
@@ -42,7 +43,7 @@ class Ticker extends ExchangeBase
             foreach ($this->data as $pair => $datum) {
                 $data = current($datum);
                 $symbol = explode('_', $pair);
-                $ticker = new Ticker();
+                $ticker = new TickerModel();
                 $ticker->digital_currency = $symbol[0];
                 $ticker->market_currency = $symbol[1];
                 $ticker->open = $data['o'];

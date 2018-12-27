@@ -52,15 +52,36 @@ class Exchange
         return $this->options;
     }
 
+    /**
+     * 获取ticker数据
+     * @return mixed
+     */
     public function getTicker()
     {
-        $class = '\ExchangeCenter\Exchanges\\' . $this->exchange . '\Ticker';
+        return $this->initClass('Ticker')->getData($this->options);
+    }
+
+    /**
+     * 获取pairs数据
+     * @return mixed
+     */
+    public function getPairs()
+    {
+        return $this->initClass('Pairs')->getData($this->options);
+    }
+
+    /**
+     * 根据数据类型获取对象
+     * @param $mode
+     * @return mixed
+     */
+    private function initClass($mode)
+    {
+        $class = '\ExchangeCenter\Exchanges\\' . $this->exchange . '\\' . $mode;
         if (!class_exists($class)) {
             Helper::fail('暂不支持该交易所获取Ticker');
         }
-        $this->class = new $class();
-        $ret = $this->class->getData($this->options);
-        return $ret;
+        return new $class();
     }
 
 }

@@ -30,9 +30,11 @@ class ExchangeBase
     {
         $timeout = $this->config['timeout'] ?? 10;
         $client_params = [
-            'base_uri' => $this->config['url'],
             'timeout' => $timeout,
         ];
+        if(!empty($this->config['url'])) {
+            $client_params['base_uri'] = $this->config['url'];
+        }
         //设置代理
         if (!empty($options['proxy'])) {
             $client_params['proxy'] = $this->config['proxy'];
